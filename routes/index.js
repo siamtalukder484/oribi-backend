@@ -6,6 +6,6 @@ const api = process.env.BASE_URL;
 
 router.use(api, apiRoutes);
 
-router.use(api, (req, res) => res.send("No Api Found On This Route"));
+router.use(api, (req, res) => res.send("No Api Found On This Route Location"));
 
 module.exports = router;
