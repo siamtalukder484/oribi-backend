@@ -1,9 +1,26 @@
 const express = require("express");
-const router = express.Router();
+const emailValidation = require("../../helpers/emailValidation.js");
+const router = express.Router(); 
 
 
-router.get("/registration",(req, res)=>{
-    res.send("ami auth route thake asci")
+router.post("/registration",(req, res)=>{
+    const {fullname, email, password} = req.body
+    console.log(req.body);
+    if(!fullname){
+        return res.send({error: "Enter your Fullname"})
+    }
+    else if(!email){
+        return res.send({error: "Enter your Email"})
+    }
+    else if(!emailValidation(email)){
+        return res.send({error: "Enter a valid Eamil"})
+    }
+    else if(!password){
+        return res.send({error: "Enter your Password"})
+    }
+    else{
+        return res.send({success: "Registration Successfully"})
+    }
 })
 
 
