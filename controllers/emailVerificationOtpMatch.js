@@ -6,6 +6,11 @@ let emailVerificationOtpMatch = async (req,res) => {
     let findOtp = await User.find({email})
     if(findOtp.length > 0){
         if(randomOtp == findOtp[0].randomOtp){
+            let removeOtpAfterMatch = await User.findOneAndUpdate(
+                {email},
+                {$unset: {randomOtp: ""}},
+                {new: true}
+            );
             res.json({"success" : "OTP Matched"})
         }else{
             res.json({"error" : "OTP not Matched"})
