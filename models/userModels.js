@@ -35,6 +35,9 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    randomOtp: {
+        type: String,
+    },
     updated:{
         type: Date,
     },

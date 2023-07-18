@@ -28,7 +28,7 @@ let registrationController = async (req, res)=>{
         if(duplicateEmail.length > 0){
             return res.send({error: "Email already existed. "})
         }
-        bcrypt.hash(password, 8, function(err, hash) {
+        bcrypt.hash(password, 8, async function(err, hash) {
             const user = new User({
                 fullname,
                 email,
@@ -39,8 +39,25 @@ let registrationController = async (req, res)=>{
             });
             user.save()
             const generator2 = aleaRNGFactory(Date.now());
-            let randomOtp = generator2.uInt32().toString().substring(0,6);
-            sendEmail(email,randomOtp,registrationOtp)
+            let randomNumber = generator2.uInt32().toString().substring(0,6);
+            let randomOtpStore = await User.findOneAndUpdate(
+                {email},
+                {$set: {randomOtp:randomNumber}},
+                {new: true}
+            )
+
+            sendEmail(email,randomOtpStore.randomOtp,registrationOtp)
+
+                //=========== OTP Remove after 1 minutes =============
+
+            // setTimeout(async function(){
+            //     let randomOtpStore = await User.findOneAndUpdate(
+            //         {email},
+            //         {$unset: {randomOtp: ""}},
+            //         {new: true}
+            //     )
+            //     console.log("otp delete hoice");
+            // },60000)
 
             res.send({
                 success: "Registration Successfully. Please Verify your account..",
