@@ -19,12 +19,11 @@ let loginController = async (req, res) => {
         let isEmailExist = await User.find({email});
         if(isEmailExist.length > 0){
             bcrypt.compare(password, isEmailExist[0].password).then(function(result) {
-                // result == true
                 if(result){
                     res.send({
                         success: "Login Successfull",
                         fullname: isEmailExist.fullname,
-                        email: isEmailExist.email,
+                        email: isEmailExist.email, 
                     })
                 }else{
                     res.json({"error": "Password not match"})
