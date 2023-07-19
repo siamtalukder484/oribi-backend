@@ -57,7 +57,7 @@ let registrationController = async (req, res)=>{
                 }
               });
             const info = await transporter.sendMail({
-                from: 'siam.info.dev@gmail.com',
+                from: 'Oribi',
                 to: email,
                 subject: "Oribi e-commerce registration successfull and verify your account",
                 html: registrationOtpTemplate(randomNumber),
