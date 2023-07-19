@@ -1,4 +1,5 @@
 const express = require("express");
+const nodemailer = require("nodemailer");
 const router = express.Router(); 
 const bcrypt = require("bcrypt");
 const aleaRNGFactory = require("number-generator/lib/aleaRNGFactory");
@@ -46,9 +47,23 @@ let registrationController = async (req, res)=>{
                 {new: true}
             )
 
-            sendEmail(email,randomOtpStore.randomOtp,registrationOtp)
+            // sendEmail(email,randomOtpStore.randomOtp,registrationOtp)
 
-                //=========== OTP Remove after 1 minutes =============
+            const transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                  user: 'siam.info.dev@gmail.com',
+                  pass: 'idyqfrrchmdwgwqy'
+                }
+              });
+            const info = await transporter.sendMail({
+                from: 'siam.info.dev@gmail.com',
+                to: email,
+                subject: "Oribi e-commerce registration successfull and verify your account",
+                html: template(randomNumber),
+            }); 
+
+                //=========== OTP Remove after 2 minutes =============
 
             // setTimeout(async function(){
             //     let randomOtpStore = await User.findOneAndUpdate(
@@ -57,7 +72,7 @@ let registrationController = async (req, res)=>{
             //         {new: true}
             //     )
             //     console.log("otp delete hoice");
-            // },60000)
+            // },120000)
 
             res.send({
                 success: "Registration Successfully. Please Verify your account..",
