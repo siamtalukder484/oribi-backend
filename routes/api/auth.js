@@ -11,4 +11,4 @@ router.post("/login", loginController)
 router.post("/emailverification", emailVerificationOtpMatch)
 
 
-module.exports = router; 
+module.exports = router;
