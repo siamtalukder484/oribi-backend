@@ -1,6 +1,6 @@
 const Category = require("../models/categoryModel.js")
 
-async function createCategoryController (req,res){
+async function categoryController (req,res){
     
     const {name, description} = req.body
 
@@ -18,5 +18,10 @@ async function createCategoryController (req,res){
         success: "Category created Successfully.."
     })
 }
+async function categoryStatusController (req,res){
+    
+    const {name,status} = req.body
+    console.log(name,status);
+}
 
-module.exports = createCategoryController
+module.exports = {categoryController,categoryStatusController};
