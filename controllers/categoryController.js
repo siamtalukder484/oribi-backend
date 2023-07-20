@@ -19,7 +19,6 @@ async function categoryController (req,res){
     })
 }
 async function categoryStatusController (req,res){
-    
     const {name,status} = req.body
     console.log(name,status);
 }
