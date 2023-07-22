@@ -18,9 +18,32 @@ async function categoryController (req,res){
         success: "Category created Successfully.."
     })
 }
+
 async function categoryStatusController (req,res){
     const {name,status} = req.body
     console.log(name,status);
+    if(status == "rejected" || status == "waiting"){
+        let updateCategory = await Category.findOneAndUpdate (
+            {name},
+            {$set:{
+                isActive: false,
+                status: status,
+            }},
+            {new: true}
+        )
+        return res.send({success: "Status Updated"})
+    }
+    else if(status == "approved"){
+        let updateCategory = await Category.findOneAndUpdate (
+            {name},
+            {$set:{
+                isActive: true,
+                status: status,
+            }},
+            {new: true}
+        )
+        return res.send({success: "Status Updated"})
+    }
 }
 
 module.exports = {categoryController,categoryStatusController};
