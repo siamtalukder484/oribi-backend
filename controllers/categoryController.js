@@ -1,6 +1,8 @@
 const Category = require("../models/categoryModel.js")
 const SubCategory = require("../models/subCategoryModel.js")
 
+// ============== Category ====================
+
 async function categoryCreateController (req,res){
     
     const {name, description} = req.body
@@ -19,7 +21,6 @@ async function categoryCreateController (req,res){
         success: "Category created Successfully.."
     })
 }
-
 async function categoryStatusController (req,res){
     const {name,status} = req.body
     console.log(name,status);
@@ -47,6 +48,11 @@ async function categoryStatusController (req,res){
     }
 }
 
+async function getAllCategory (req,res){
+    const data = await Category.find({}).populate("subCategory")
+    res.send(data)
+}
+
 // ============== SubCategory ====================
 
 async function subCategoryCreateController (req,res){
@@ -70,7 +76,6 @@ async function subCategoryCreateController (req,res){
         success: "Sub Category created Successfully.."
     })
 }
-
 async function subCategoryStatusController (req,res){
     const {name,status} = req.body
     console.log(name,status);
@@ -98,5 +103,10 @@ async function subCategoryStatusController (req,res){
     }
 }
 
+async function getAllSubCategory (req,res){
+    const data = await SubCategory.find({}).populate("category")
+    res.send(data)
+}
 
-module.exports = {categoryCreateController,categoryStatusController,subCategoryCreateController,subCategoryStatusController};
+
+module.exports = {categoryCreateController,categoryStatusController,subCategoryCreateController,subCategoryStatusController,getAllCategory,getAllSubCategory};
