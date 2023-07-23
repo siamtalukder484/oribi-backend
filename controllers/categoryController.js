@@ -57,7 +57,7 @@ async function getAllCategory (req,res){
 
 async function subCategoryCreateController (req,res){
     const {name, description, category} = req.body
-    console.log(name,description, category);
+    
     let duplicateSubCategory = await SubCategory.find({name})
 
     if(duplicateSubCategory.length > 0){
@@ -78,7 +78,6 @@ async function subCategoryCreateController (req,res){
 }
 async function subCategoryStatusController (req,res){
     const {name,status} = req.body
-    console.log(name,status);
     if(status == "rejected" || status == "waiting"){
         let updateSubcategory = await SubCategory.findOneAndUpdate (
             {name},
