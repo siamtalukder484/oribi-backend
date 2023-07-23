@@ -5,9 +5,13 @@ async function becomeMerchant(req, res){
     const {storename, officialemail, officialphone, address, owner, products} = req.body
 
     let duplicateMerchant = await Store.find({storename})
+    let duplicateMerchantEmail = await Store.find({officialemail})
 
     if(duplicateMerchant.length > 0){
         return res.send({error: "Store already existed. "})
+    }
+    if(duplicateMerchantEmail.length > 0){
+        return res.send({error: "Store Email already existed."})
     }
 
     const store = new Store({
@@ -52,7 +56,7 @@ async function merchantStatusController(req, res){
 }
 
 async function getAllMerchant(req,res){
-    const data = await Store.find({}).populate("user")
+    const data = await Store.find({}).populate("owner")
     res.send(data)
 }
 
