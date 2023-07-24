@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const {secureUpload} = require("../../controllers/productController.js")
+const {secureUpload,createProduct} = require("../../controllers/productController.js")
 
-router.post("/createproduct",secureUpload)
+router.post("/createproduct",secureUpload,createProduct)
 
 
 module.exports = router; 
