@@ -1,4 +1,5 @@
 const User = require("../models/userModels");
+const Product = require("../models/productModel")
 
 async function secureUpload(req, res, next){
     
@@ -33,7 +34,16 @@ async function secureUpload(req, res, next){
 }
 
 async function createProduct(req,res){
-    res.send("Let's create product");
+    let {name,description,image,store} = req.body
+
+    let product = new Product({
+        name,
+        description,
+        image,
+        store
+    })
+    product.save()
+    res.send({success: "Product created successfully.."})
 }
 
 module.exports = {secureUpload, createProduct}
