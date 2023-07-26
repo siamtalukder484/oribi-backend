@@ -48,10 +48,14 @@ async function createProduct(req,res){
 }
 
 async function createVariant(req,res){
-    let {name,image,product} = req.body
+    let {variantType,color,storage, ram,size,image,product} = req.body
 
     let variant = new Variant({
-        name,
+        variantType,
+        color,
+        storage,
+        ram,
+        size,
         image,
         product
     })
