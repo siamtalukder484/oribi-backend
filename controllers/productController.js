@@ -1,5 +1,6 @@
 const User = require("../models/userModels");
-const Product = require("../models/productModel")
+const Product = require("../models/productModel");
+const Variant = require("../models/variantModel");
 
 async function secureUpload(req, res, next){
     
@@ -46,4 +47,17 @@ async function createProduct(req,res){
     res.send({success: "Product created successfully.."})
 }
 
-module.exports = {secureUpload, createProduct}
+async function createVariant(req,res){
+    let {name,image,product} = req.body
+
+    let variant = new Variant({
+        name,
+        image,
+        product
+    })
+    variant.save()
+    await Product.findOneAndUpdate({_id: variant.product},{$push:{variants: variant._id}},{new: true})
+    res.send({success: "Variant created successfully.."})
+}
+
+module.exports = {secureUpload, createProduct, createVariant}

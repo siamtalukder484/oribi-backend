@@ -15,10 +15,22 @@ const variantSchema = new Schema({
     //     type: Number,
     //     required: true
     // },
-    quantity:{
-        type: Number,
-        required: true
-    },
+   
+    value:[
+        {
+            name:{
+                type: String,
+                required: true,
+            },
+            price:{
+                type: String,
+            },
+            quantity:{
+                type: Number,
+                required: true
+            },
+        }
+    ],
     product:{
         type: Schema.Types.ObjectId,
         ref: "Product"

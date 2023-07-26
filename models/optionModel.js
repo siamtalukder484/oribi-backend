@@ -9,7 +9,17 @@ const optionSchema = new Schema({
     },
     value:[
         {
-            
+            name:{
+                type: String,
+                required: true,
+            },
+            price:{
+                type: String,
+            },
+            quantity:{
+                type: Number,
+                required: true
+            },
         }
     ],
     created:{
