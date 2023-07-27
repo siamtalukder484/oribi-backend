@@ -24,7 +24,8 @@ const variantSchema = new Schema({
     },
     product:{
         type: Schema.Types.ObjectId,
-        ref: "Product"
+        ref: "Product",
+        required: true
     },
     created:{
         type: Date,
