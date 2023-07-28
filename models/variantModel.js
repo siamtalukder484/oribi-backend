@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
 const variantSchema = new Schema({
-    variantType:{
-        type: String,
-        required: true
-    },
     color:{
         type: String,
     },
@@ -20,6 +16,12 @@ const variantSchema = new Schema({
         type: String,
     },
     size:{
+        type: String,
+    },
+    print:{
+        type: String,
+    },
+    quantity:{
         type: String,
     },
     product:{

@@ -2,6 +2,7 @@ const User = require("../models/userModels");
 const Product = require("../models/productModel");
 const Variant = require("../models/variantModel");
 
+
 async function secureUpload(req, res, next){
     
     let userid = req.headers.authorization.split("@")[1]
@@ -48,19 +49,22 @@ async function createProduct(req,res){
 }
 
 async function createVariant(req,res){
-    let {variantType,color,storage, ram,size,image,product} = req.body
+    let {color,storage, ram,size,image,price,quantity,product} = req.body
+    console.log(req.file.filename);
 
     let variant = new Variant({
-        variantType,
         color,
         storage,
         ram,
         size,
-        image,
+        image:`${process.env.IMAGE_PATH}/uploads/${req.file.filename}`,
+        price,
+        quantity,
         product
     })
     variant.save()
     await Product.findOneAndUpdate({_id: variant.product},{$push:{variants: variant._id}},{new: true})
+
     res.send({success: "Variant created successfully.."})
 }
 
