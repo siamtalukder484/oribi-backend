@@ -15,4 +15,9 @@ async function createDiscountController(req,res){
     res.send("Discount Created Successfully")
 }
 
-module.exports = {createDiscountController}
+async function getAllDiscount(req,res){
+    let data = await Discount.find({}).populate(["category","subCategory","product"])
+    res.send(data)
+}
+
+module.exports = {createDiscountController,getAllDiscount}
